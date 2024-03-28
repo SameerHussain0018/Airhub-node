@@ -4,7 +4,7 @@ const https = require('https');
 const { IncomingWebhook } = require('@slack/webhook');
 
 // Your Slack webhook URL
-const slackWebhookUrl = 'https://hooks.slack.com/services/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';
+const slackWebhookUrl = 'https://hooks.slack.com/services/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';
 
 // Function to fetch the API data
 async function fetchApiData() {
