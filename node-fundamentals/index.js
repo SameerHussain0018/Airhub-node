@@ -3,8 +3,8 @@ const axios = require('axios');
 const https = require('https');
 const { IncomingWebhook } = require('@slack/webhook');
 
-// Your Slack webhook URL
-const slackWebhookUrl = 'https://hooks.slack.com/services/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';
+// Retrieve Slack webhook URL from environment variables
+const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL;
 
 // Function to fetch the API data
 async function fetchApiData() {
