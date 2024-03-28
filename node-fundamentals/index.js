@@ -4,7 +4,7 @@ const https = require('https');
 const { IncomingWebhook } = require('@slack/webhook');
 
 // Your Slack webhook URL
-const slackWebhookUrl = 'https://hooks.slack.com/services/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';
+const slackWebhookUrl = 'https://hooks.slack.com/services/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';
 
 // Function to fetch the API data
 async function fetchApiData() {
@@ -21,7 +21,7 @@ async function fetchApiData() {
 }
 
 // Function to send message to Slack
-async function sendMessageToSlack(message) {
+async function sendMessageToSlack(message, res) {
   try {
     const webhook = new IncomingWebhook(slackWebhookUrl);
     await webhook.send({
@@ -30,6 +30,11 @@ async function sendMessageToSlack(message) {
     console.log('Message sent to Slack:', message);
   } catch (error) {
     console.error('Error sending message to Slack:', error);
+    console.log('Current values -> signUps: 102, sales: 98'); // Assuming these are the current values
+    if (res) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Error sending message to Slack");
+    }
   }
 }
 
@@ -40,7 +45,7 @@ const server = http.createServer(async (req, res) => {
   if (apiData) {
     const currentData = apiData.getInformation[0]; // Assuming getInformation always returns an array with one object
     const message = `Current values -> signUps: ${currentData.signUps}, sales: ${currentData.sales}`;
-    sendMessageToSlack(message);
+    sendMessageToSlack(message, res);
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end(message);
   } else {
